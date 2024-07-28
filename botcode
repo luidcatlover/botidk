@@ -1,0 +1,30 @@
+import discord
+from discord.ext import commands
+
+intents = discord.Intents.all()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='?', intents=intents)
+
+@bot.event
+async def on_ready():
+    print(f'We have logged in as {bot.user}')
+
+@bot.command()
+async def hi(ctx):
+    await ctx.send(f'Привет! Я бот {bot.user}!')
+
+@bot.command()
+async def heh(ctx, count_heh = 5):
+    await ctx.send("he" * count_heh)
+
+@bot.command()
+async def add(ctx, left: int, right: int):
+    """Складывает 2 числа"""
+    await ctx.send(left + right)
+
+@bot.command()
+async def help(ctx):
+    await ctx.send(f'?hi - приветствие, ?heh - Nyeh heh heh!, add - складывает 2')
+
+bot.run("insert token")
